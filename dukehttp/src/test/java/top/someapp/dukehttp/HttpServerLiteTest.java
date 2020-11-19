@@ -53,7 +53,6 @@ public class HttpServerLiteTest implements Http.HttpRequestHandler {
         System.out.println("Test finished!");
     }
 
-
     @Override
     public boolean handle(HttpRequest request, HttpResponse response) {
         response.write(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));

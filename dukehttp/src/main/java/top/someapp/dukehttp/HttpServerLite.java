@@ -72,7 +72,7 @@ public class HttpServerLite implements Http.HttpServer {
     public HttpServer startup() {
         if (!isStarted()) {
             try {
-                httpd.start();
+                httpd.start(10 * 1000, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
