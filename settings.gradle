@@ -1,1 +1,3 @@
-rootProject.name = 'duke'
+// rootProject.name = 'duke'
+include 'dukelib'
+//include 'dukehttp'
