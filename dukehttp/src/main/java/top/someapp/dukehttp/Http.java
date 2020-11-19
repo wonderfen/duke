@@ -14,8 +14,6 @@ import javax.annotation.Nonnull;
  */
 public interface Http {
 
-    String TAG = "Http/";
-
     enum Method {
         GET,
         PUT,
@@ -34,7 +32,7 @@ public interface Http {
 
         boolean isStarted();
 
-        void registerHandler(HttpRequestHandler... handlers);
+        void registerHandler(@Nonnull HttpRequestHandler... handlers);
     }
 
     interface HttpRequest {

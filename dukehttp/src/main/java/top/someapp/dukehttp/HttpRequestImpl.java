@@ -10,6 +10,7 @@ import java.util.Map;
  * Created on 2019-10-15
  */
 class HttpRequestImpl implements Http.HttpRequest {
+
     private final NanoHTTPD.IHTTPSession session;
     private Map<String, String> header;
     private Map<String, String> body;

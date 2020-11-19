@@ -5,6 +5,7 @@ package top.someapp.dukelib;
  * Created on 2020-11-18
  */
 public class AppException extends RuntimeException {
+
     public AppException() {
         super("Unknown Exception!");
     }

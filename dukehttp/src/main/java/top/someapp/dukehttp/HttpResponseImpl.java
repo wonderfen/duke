@@ -9,6 +9,7 @@ import java.io.InputStream;
  * Created on 2019-10-15
  */
 class HttpResponseImpl implements Http.HttpResponse {
+
     private int status = 200;
     private String contentType = "text/plain";
     private boolean writeDone = false;
@@ -51,7 +52,9 @@ class HttpResponseImpl implements Http.HttpResponse {
     @Override
     public void write(String content) {
         range = null;
-        if (writeDone) return;
+        if (writeDone) {
+            return;
+        }
         try {
             out.write(content.getBytes());
         } catch (IOException e) {
@@ -63,7 +66,9 @@ class HttpResponseImpl implements Http.HttpResponse {
     @Override
     public void write(InputStream ins) {
         range = null;
-        if (writeDone) return;
+        if (writeDone) {
+            return;
+        }
         byte[] bytes = new byte[512];
         try {
             for (int len; ; ) {
@@ -101,8 +106,9 @@ class HttpResponseImpl implements Http.HttpResponse {
 
     @Override
     public byte[] getBytes() {
-        if (isRangeSupport())
+        if (isRangeSupport()) {
             return out.toByteArray();
+        }
         return writeDone && out.size() > 0 ? out.toByteArray() : null;
     }
 }
