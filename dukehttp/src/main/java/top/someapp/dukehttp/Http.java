@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -58,26 +59,6 @@ public interface Http {
         Map<String, String> bodyParams();
     }
 
-    final class ResponseRange {
-
-        public final byte[] data;
-        public final int start;
-        public final int length;
-        public final long total;
-
-        public ResponseRange(byte[] data, int start, int length, long total) {
-            this.data = data;
-            this.start = start;
-            this.length = length;
-            this.total = total;
-        }
-
-        public String toHeader() {
-            // Content-Range: bytes 0-499/22400 0－499 是指当前发送的数据的范围，而 22400 则是文件的总大小
-            return String.format(Locale.US, "bytes %d-%d/%d", start, start + length - 1, total);
-        }
-    }
-
     interface HttpResponse {
 
         int status();
@@ -113,6 +94,50 @@ public interface Http {
         void handle(boolean success, InputStream ins, IOException error);
     }
 
+    interface HttpClient {
+
+        String get(String path) throws IOException;
+
+        String get(String path, Map<String, String> params) throws IOException;
+
+        Map<String, Object> getJSON(String path) throws IOException;
+
+        Map<String, Object> getJSON(String path, Map<String, String> params) throws IOException;
+
+        void download(String path, Map<String, String> params, @Nonnull ResponseHandler handler);
+
+        void getAsync(String path, Map<String, String> params, @Nonnull ResponseHandler handler);
+
+        String post(String path) throws IOException;
+
+        String post(String path, Map<String, String> params) throws IOException;
+
+        Map<String, Object> postJSON(String path, Map<String, String> params) throws IOException;
+
+        void uploadFile(String path, @Nonnull FileUploadEntry entry,
+            @Nonnull ResponseHandler handler) throws IOException;
+    }
+
+    final class ResponseRange {
+
+        public final byte[] data;
+        public final int start;
+        public final int length;
+        public final long total;
+
+        public ResponseRange(byte[] data, int start, int length, long total) {
+            this.data = data;
+            this.start = start;
+            this.length = length;
+            this.total = total;
+        }
+
+        public String toHeader() {
+            // Content-Range: bytes 0-499/22400 0－499 是指当前发送的数据的范围，而 22400 则是文件的总大小
+            return String.format(Locale.US, "bytes %d-%d/%d", start, start + length - 1, total);
+        }
+    }
+
     class FileUploadEntry {
 
         public final File file;
@@ -141,29 +166,5 @@ public interface Http {
 //                    ? optionFilename : file.getName();
             return optionFilename == null ? file.getName() : optionFilename;
         }
-    }
-
-    interface HttpClient {
-
-        String get(String path) throws IOException;
-
-        String get(String path, Map<String, String> params) throws IOException;
-
-        Map<String, Object> getJSON(String path) throws IOException;
-
-        Map<String, Object> getJSON(String path, Map<String, String> params) throws IOException;
-
-        void download(String path, Map<String, String> params, @Nonnull ResponseHandler handler);
-
-        void getAsync(String path, Map<String, String> params, @Nonnull ResponseHandler handler);
-
-        String post(String path) throws IOException;
-
-        String post(String path, Map<String, String> params) throws IOException;
-
-        Map<String, Object> postJSON(String path, Map<String, String> params) throws IOException;
-
-        void uploadFile(String path, @Nonnull FileUploadEntry entry,
-            @Nonnull ResponseHandler handler) throws IOException;
     }
 }

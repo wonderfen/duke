@@ -32,20 +32,6 @@ public abstract class AbstractRequestHandler implements Http.HttpRequestHandler 
         "</html>";
     protected static final Pattern fileReg = Pattern.compile("(/\\S+)*/\\S+[.]\\S+");
 
-    @Override
-    public boolean handle(Http.HttpRequest request, Http.HttpResponse response) {
-        send404(response);
-        return true;
-    }
-
-    protected boolean isFileRequest(Http.HttpRequest request) {
-        return fileReg.matcher(request.uri()).matches();
-    }
-
-    protected boolean isFileGet(Http.HttpRequest request) {
-        return request.method() == Http.Method.GET && isFileRequest(request);
-    }
-
     public static String contentTypeOf(String fileName) {
         int index = fileName.lastIndexOf('.');
         String suffix = fileName;
@@ -82,6 +68,20 @@ public abstract class AbstractRequestHandler implements Http.HttpRequestHandler 
                 return "video/mpeg4";
         }
         return "application/octet-stream";
+    }
+
+    @Override
+    public boolean handle(Http.HttpRequest request, Http.HttpResponse response) {
+        send404(response);
+        return true;
+    }
+
+    protected boolean isFileRequest(Http.HttpRequest request) {
+        return fileReg.matcher(request.uri()).matches();
+    }
+
+    protected boolean isFileGet(Http.HttpRequest request) {
+        return request.method() == Http.Method.GET && isFileRequest(request);
     }
 
     protected void send404(Http.HttpResponse response) {

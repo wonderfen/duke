@@ -10,10 +10,10 @@ import java.io.InputStream;
  */
 class HttpResponseImpl implements Http.HttpResponse {
 
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream(512);
     private int status = 200;
     private String contentType = "text/plain";
     private boolean writeDone = false;
-    private final ByteArrayOutputStream out = new ByteArrayOutputStream(512);
     private Http.ResponseRange range;
     private long total;
 
