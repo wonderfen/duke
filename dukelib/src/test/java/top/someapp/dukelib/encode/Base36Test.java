@@ -1,8 +1,8 @@
 package top.someapp.dukelib.encode;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author zwz

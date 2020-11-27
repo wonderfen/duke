@@ -13,5 +13,4 @@ public class Cell {
     private String name;
     private BasicType type;
     private String rawValue;
-
 }

@@ -1,8 +1,5 @@
 package top.someapp.dukehttp;
 
-import static top.someapp.dukehttp.NanoHTTPD.newChunkedResponse;
-import static top.someapp.dukehttp.NanoHTTPD.newFixedLengthResponse;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -15,6 +12,9 @@ import top.someapp.dukehttp.Http.HttpRequestHandler;
 import top.someapp.dukehttp.Http.HttpServer;
 import top.someapp.dukehttp.NanoHTTPD.IHTTPSession;
 import top.someapp.dukehttp.NanoHTTPD.Response;
+
+import static top.someapp.dukehttp.NanoHTTPD.newChunkedResponse;
+import static top.someapp.dukehttp.NanoHTTPD.newFixedLengthResponse;
 
 /**
  * @author zw-zheng
@@ -64,10 +64,11 @@ public class HttpServerLite implements Http.HttpServer {
                 return httpResp;
             }
             return newChunkedResponse(Response.Status.lookup(response.status()),
-                response.contentType(), new ByteArrayInputStream(response.getBytes()));
+                                      response.contentType(),
+                                      new ByteArrayInputStream(response.getBytes()));
         }
         return newFixedLengthResponse(Response.Status.NOT_FOUND,
-            "text/html", AbstractRequestHandler.page404Html);
+                                      "text/html", AbstractRequestHandler.page404Html);
     }
 
     @Override

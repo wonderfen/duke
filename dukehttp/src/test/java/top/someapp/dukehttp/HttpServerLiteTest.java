@@ -1,7 +1,5 @@
 package top.someapp.dukehttp;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CountDownLatch;
@@ -13,6 +11,8 @@ import org.junit.Test;
 import top.someapp.dukehttp.Http.HttpRequest;
 import top.someapp.dukehttp.Http.HttpResponse;
 import top.someapp.dukehttp.Http.HttpServer;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author zw-zheng
